@@ -49,3 +49,31 @@ button.b.p{background:var(--brand);color:#fff;border-color:var(--brand)}
 button.b:hover{filter:brightness(.96)}
 .tabs{display:flex;flex-wrap:wrap;gap:8px}.tab{font:inherit;font-weight:600;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:99px;cursor:pointer}.tab.on{background:var(--brand);border-color:var(--brand);color:#fff}
 .foot{text-align:center;color:var(--mute);font-size:12px;margin:16px 0 8px}
+
+
+/* A4 print setup: prints only the currently selected class mark list. */
+@page { size: A4 landscape; margin: 8mm; }
+@media print {
+  :root { --bg:#fff !important; --card:#fff !important; --ink:#111 !important; --mute:#444 !important; --line:#bbb !important; --brand:#0f5c43 !important; --brand2:#eef5f0 !important; --head:#0f5c43 !important; --headink:#fff !important; }
+  html, body { width:100% !important; margin:0 !important; padding:0 !important; background:#fff !important; color:#111 !important; font-size:9px !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .wrap { width:100% !important; max-width:none !important; margin:0 !important; padding:0 !important; }
+  .wrap > section:nth-of-type(1), .wrap > section:nth-of-type(3), .bar, .foot, .x, button { display:none !important; }
+  .hero { margin:0 0 5mm !important; padding:5mm !important; border-radius:0 !important; box-shadow:none !important; }
+  .hero h1 { font-size:18px !important; } .hero p { margin:2px 0 5px !important; font-size:11px !important; } .badge { font-size:11px !important; padding:3px 14px !important; }
+  .card { margin:0 0 3mm !important; padding:2.5mm !important; border:1px solid #bbb !important; border-radius:3px !important; break-inside:avoid; }
+  h2 { font-size:11px !important; margin:0 0 2mm !important; }
+  .grid { grid-template-columns:repeat(4,1fr) !important; gap:2mm !important; }
+  label { font-size:8px !important; }
+  .grid input { border:0 !important; border-bottom:1px solid #aaa !important; border-radius:0 !important; padding:1px 2px !important; font-size:9px !important; background:transparent !important; color:#111 !important; }
+  .stats { grid-template-columns:repeat(4,1fr) !important; gap:2mm !important; } .stat { padding:2mm !important; border:1px solid #ddd !important; } .stat b { font-size:15px !important; } .stat span, .stat strong { font-size:8px !important; }
+  .scroll { overflow:visible !important; border:0 !important; }
+  table { width:100% !important; min-width:0 !important; table-layout:fixed !important; border-collapse:collapse !important; font-size:7px !important; background:#fff !important; }
+  th { position:static !important; font-size:6.5px !important; letter-spacing:0 !important; padding:4px 2px !important; white-space:normal !important; overflow-wrap:anywhere !important; }
+  td { padding:2px 1px !important; font-size:7px !important; border:1px solid #ccc !important; height:20px !important; }
+  td.nm { min-width:0 !important; width:23mm !important; text-align:left !important; }
+  td.nm input, td input { width:100% !important; min-width:0 !important; padding:1px !important; border:0 !important; background:transparent !important; color:#111 !important; font-size:7px !important; text-align:center !important; }
+  td.nm input { text-align:left !important; } td.gn, td.hj { width:9mm !important; }
+  .m { width:auto !important; font-size:7px !important; } .tag { min-width:0 !important; padding:1px 3px !important; font-size:6px !important; }
+  tr { break-inside:avoid; page-break-inside:avoid; } thead { display:table-header-group; }
+  .m.r, .m.g, .m.y, .PASS, .FAIL, .INCOMPLETE { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
