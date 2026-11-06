@@ -73,6 +73,7 @@ function stats(){
   items.forEach(function(i){var d=mk("div","stat "+i[3]);d.appendChild(mk("b","",String(i[1])));d.appendChild(mk("strong","",i[0]));d.appendChild(mk("br"));d.appendChild(mk("span","",i[2]));h.appendChild(d)});
 }
 
+$("print").addEventListener("click",function(){window.print()});
 $("add").addEventListener("click",function(){S.st.push({n:"",g:"",h:"",m:["","","","","","",""]});buildRows();save();
   var inputs=tb.querySelectorAll("tr:last-child td.nm input");if(inputs[0])inputs[0].focus()});
 var armed=false,cb=$("clear");
