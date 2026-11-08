@@ -1,4 +1,3 @@
-
 (function () {
   "use strict";
 
@@ -66,6 +65,7 @@
   }
 
   var S = makeInitialClass();
+
   var ALL = {
     lists: [S],
     cur: 0
@@ -81,6 +81,7 @@
 
       if (parsed && Array.isArray(parsed.lists) && parsed.lists.length) {
         ALL = parsed;
+
         ALL.cur = Math.max(
           0,
           Math.min(
@@ -101,6 +102,7 @@
 
   function migrateClass(cls) {
     if (!cls.meta) cls.meta = {};
+
     if (!cls.cfg) {
       cls.cfg = {
         pass: 18,
@@ -138,6 +140,7 @@
   }
 
   ALL.lists.forEach(migrateClass);
+
   var S = ALL.lists[ALL.cur];
 
   function save() {
@@ -155,7 +158,9 @@
 
   function num(v) {
     if (v === "" || v === null || v === undefined) return null;
+
     var x = Number(v);
+
     return Number.isFinite(x) ? x : null;
   }
 
@@ -173,8 +178,10 @@
 
   function mk(tag, cls, txt) {
     var e = document.createElement(tag);
+
     if (cls) e.className = cls;
     if (txt !== undefined) e.textContent = txt;
+
     return e;
   }
 
@@ -305,7 +312,11 @@
     });
 
     S.subjects.forEach(function (subject, index) {
-      var th = mk("th");
+
+      var th = mk("th", "subject-heading");
+
+      th.setAttribute("data-subject", subject);
+
       var input = mk("input", "subject-name");
 
       input.value = subject;
@@ -313,6 +324,8 @@
 
       input.addEventListener("change", function () {
         renameSubject(index, input.value);
+
+        th.setAttribute("data-subject", input.value.trim());
       });
 
       input.addEventListener("keydown", function (event) {
@@ -324,6 +337,7 @@
       th.appendChild(input);
 
       var del = mk("button", "subject-delete", "×");
+
       del.type = "button";
       del.title = "Remove this subject";
 
@@ -332,6 +346,7 @@
       });
 
       th.appendChild(del);
+
       tr.appendChild(th);
     });
 
@@ -347,6 +362,7 @@
     head.appendChild(tr);
 
     var count = $("subjectCount");
+
     if (count) {
       count.textContent =
         S.subjects.length + " / " + MAX_SUBJECTS + " Subjects";
@@ -359,6 +375,7 @@
 
   function buildRows() {
     renderTableHead();
+
     tb.innerHTML = "";
 
     S.st.forEach(function (student, i) {
@@ -396,7 +413,9 @@
 
       genderInput.addEventListener("input", function () {
         genderInput.value = genderInput.value.toUpperCase();
+
         student.g = genderInput.value;
+
         recalc();
         save();
       });
@@ -432,6 +451,7 @@
         inp.inputMode = "decimal";
         inp.min = 0;
         inp.max = S.cfg.max;
+
         inp.value =
           student.m[j] === "" || student.m[j] == null
             ? ""
@@ -441,12 +461,14 @@
 
         inp.addEventListener("input", function () {
           student.m[j] = inp.value;
+
           recalc();
           save();
         });
 
         td.appendChild(inp);
         tr.appendChild(td);
+
         student.els.m.push(inp);
       });
 
@@ -465,6 +487,7 @@
       var actionCell = mk("td");
 
       var removeButton = mk("button", "x", "×");
+
       removeButton.type = "button";
       removeButton.title = "Remove student";
 
@@ -472,6 +495,7 @@
         if (!confirm("ഈ വിദ്യാർത്ഥിയെ നീക്കം ചെയ്യട്ടേ?")) return;
 
         S.st.splice(i, 1);
+
         buildRows();
         save();
       });
@@ -479,6 +503,7 @@
       actionCell.appendChild(removeButton);
 
       var printButton = mk("button", "b row-print", "Print");
+
       printButton.type = "button";
       printButton.title = "Print this student's mark sheet";
 
@@ -487,6 +512,7 @@
       });
 
       actionCell.appendChild(printButton);
+
       tr.appendChild(actionCell);
 
       tb.appendChild(tr);
@@ -503,6 +529,7 @@
 
     S.st.forEach(function (student) {
       var vals = student.m.map(num);
+
       var have = vals.filter(function (v) {
         return v !== null;
       });
@@ -529,6 +556,7 @@
 
       vals.forEach(function (v, j) {
         var input = student.els.m[j];
+
         if (!input) return;
 
         var cls = "m";
@@ -630,6 +658,7 @@
     ];
 
     var holder = $("stats");
+
     holder.innerHTML = "";
 
     items.forEach(function (item) {
@@ -648,6 +677,7 @@
 
   function printStudent(index) {
     var student = S.st[index];
+
     if (!student) return;
 
     var total = student.total === null ? "—" : student.total;
@@ -677,8 +707,13 @@
 
     var html =
       '<div class="student-print-card">' +
-        '<h1>NOORUL ISLAM MADRASA EETHAPPADI,CHERUKODE</h1>' +
-        '<div class="school-sub">Under: Samastha Kerala Islam Matha Vidyabhyasa Board (SKIMVB) </div>' + '<div class="school-sub"> <h2> MARK SHEET </h2></div>' +
+
+        '<h1>NOORUL ISLAM MADRASA EETHAPPADI, CHERUKOD</h1>' +
+
+        '<div class="school-sub">Under: Samastha Kerala Islam Matha Vidyabhyasa Board (SKIMVB)</div>' +
+
+        '<div class="school-sub">MARK LIST</div>' +
+
         '<h2>' + esc(S.meta.term) + ' · ' + esc(S.meta.year) + '</h2>' +
 
         '<div class="student-meta">' +
@@ -710,22 +745,28 @@
           '<span>Teacher</span>' +
           '<span>Parent / Guardian</span>' +
         '</div>' +
+
       '</div>';
 
     var holder = document.createElement("div");
+
     holder.className = "individual-print";
     holder.innerHTML = html;
 
     document.body.appendChild(holder);
+
     document.body.classList.add("individual-print-mode");
 
     function cleanup() {
       document.body.classList.remove("individual-print-mode");
+
       holder.remove();
+
       window.removeEventListener("afterprint", cleanup);
     }
 
     window.addEventListener("afterprint", cleanup);
+
     window.print();
 
     setTimeout(cleanup, 1500);
@@ -738,10 +779,12 @@
 
     function cleanup() {
       document.body.classList.remove("class-print-mode");
+
       window.removeEventListener("afterprint", cleanup);
     }
 
     window.addEventListener("afterprint", cleanup);
+
     window.print();
 
     setTimeout(cleanup, 1500);
@@ -777,6 +820,7 @@
   clearButton.addEventListener("click", function () {
     if (!armed) {
       armed = true;
+
       clearButton.textContent = "Tap again to confirm";
 
       setTimeout(function () {
@@ -788,6 +832,7 @@
     }
 
     armed = false;
+
     clearButton.textContent = "Clear all marks";
 
     S.st.forEach(function (student) {
@@ -804,6 +849,7 @@
 
   function renderTabs() {
     var tabs = $("tabs");
+
     tabs.innerHTML = "";
 
     ALL.lists.forEach(function (cls, i) {
@@ -828,9 +874,11 @@
 
   function go(index) {
     ALL.cur = index;
+
     S = ALL.lists[index];
 
     migrateClass(S);
+
     loadForm();
     renderTabs();
     buildRows();
@@ -856,19 +904,23 @@
         cls: "",
         term: meta.term
       },
+
       cfg: {
         pass: cfg.pass,
         green: cfg.green,
         yellow: cfg.yellow,
         max: cfg.max
       },
+
       subjects: subjects.slice(),
+
       st: students
     };
 
     migrateClass(newClass);
 
     ALL.lists.push(newClass);
+
     go(ALL.lists.length - 1);
 
     $("cls").focus();
@@ -909,6 +961,7 @@
 
     if (!deleteArmed) {
       deleteArmed = true;
+
       deleteButton.textContent = "Tap again to delete";
 
       setTimeout(function () {
@@ -920,6 +973,7 @@
     }
 
     deleteArmed = false;
+
     deleteButton.textContent = "Delete this class";
 
     if (!confirm("ഈ ക്ലാസും അതിലെ ഡാറ്റയും മുഴുവനായി നീക്കം ചെയ്യട്ടേ?")) {
@@ -927,6 +981,7 @@
     }
 
     ALL.lists.splice(ALL.cur, 1);
+
     go(Math.min(ALL.cur, ALL.lists.length - 1));
   });
 
@@ -937,8 +992,11 @@
   /* Start app */
 
   loadForm();
+
   renderTabs();
+
   buildRows();
+
   save();
 
 })();
