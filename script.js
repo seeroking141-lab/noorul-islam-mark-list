@@ -677,7 +677,7 @@
 
     var html =
       '<div class="student-print-card">' +
-        '<h1>NOORUL ISLAM MADRASA EETHAPPADI,CHERUKOD</h1>' +
+        '<h1>NOORUL ISLAM MADRASA EETHAPPADI,CHERUKODE</h1>' +
         '<div class="school-sub">Under: Samastha Kerala Islam Matha Vidyabhyasa Board (SKIMVB) </div>' + '<div class="school-sub"> <h2> MARK SHEET </h2></div>' +
         '<h2>' + esc(S.meta.term) + ' · ' + esc(S.meta.year) + '</h2>' +
 
