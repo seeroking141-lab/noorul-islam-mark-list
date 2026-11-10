@@ -1,4 +1,3 @@
-
 :root {
   --bg:#f4f6f4;
   --card:#fff;
@@ -594,331 +593,373 @@ td.subject-mark {
   }
 }
 
-/* A4 print setup */
+/* =========================================================
+   PRINT SETUP  (Font 16px | Heading 20px | Sub heading 18px)
+   Class list  = A4 Landscape
+   Individual  = A4 Portrait
+   ========================================================= */
 
 @page {
-  size:A4 landscape;
-  margin:8mm;
+  size: A4 landscape;
+  margin: 8mm;
+}
+
+@page indiv {
+  size: A4 portrait;
+  margin: 12mm;
 }
 
 @media print {
+
   :root {
-    --bg:#fff !important;
-    --card:#fff !important;
-    --ink:#111 !important;
-    --mute:#444 !important;
-    --line:#bbb !important;
-    --brand:#0f5c43 !important;
-    --brand2:#eef5f0 !important;
-    --head:#0f5c43 !important;
-    --headink:#fff !important;
+    --bg:#fff; --card:#fff; --ink:#111; --mute:#333; --line:#999;
+    --brand:#0f5c43; --brand2:#eef5f0; --head:#0f5c43; --headink:#fff;
   }
 
-  html,
-  body {
-    width:100% !important;
-    margin:0 !important;
-    padding:0 !important;
-    background:#fff !important;
-    color:#111 !important;
-    font-size:9px !important;
-    -webkit-print-color-adjust:exact;
-    print-color-adjust:exact;
+  html, body {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 16px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
-  .wrap {
-    width:100% !important;
-    max-width:none !important;
-    margin:0 !important;
-    padding:0 !important;
-  }
-
+  button, .bar, .foot, .x, .tabs,
   .wrap > section:nth-of-type(1),
   .wrap > section:nth-of-type(3),
-  .bar,
-  .foot,
-  .x,
-  button {
-    display:none !important;
+  .subject-delete, .row-print {
+    display: none !important;
   }
 
+  /* ================= CLASS / ALL STUDENTS LIST ================= */
+
+  .wrap {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Heading 20px / Sub heading 18px */
   .hero {
-    margin:0 0 5mm !important;
-    padding:5mm !important;
-    border-radius:0 !important;
-    box-shadow:none !important;
+    margin: 0 0 3mm !important;
+    padding: 3mm !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #0f5c43 !important;
+    color: #fff !important;
   }
-
-  .hero h1 {
-    font-size:18px !important;
-  }
-
-  .hero p {
-    margin:2px 0 5px !important;
-    font-size:11px !important;
-  }
-
-  .badge {
-    font-size:11px !important;
-    padding:3px 14px !important;
-  }
+  .hero h1 { font-size: 20px !important; line-height: 1.25 !important; margin: 0 !important; font-weight: 800 !important; }
+  .hero p  { font-size: 18px !important; line-height: 1.3 !important; margin: 1mm 0 2mm !important; opacity: 1 !important; }
+  .badge   { font-size: 16px !important; padding: 2px 14px !important; }
 
   .card {
-    margin:0 0 3mm !important;
-    padding:2.5mm !important;
-    border:1px solid #bbb !important;
-    border-radius:3px !important;
-    break-inside:avoid;
+    margin: 0 0 3mm !important;
+    padding: 2.5mm !important;
+    border: 1px solid #bbb !important;
+    border-radius: 2px !important;
+    box-shadow: none !important;
   }
+  h2 { font-size: 18px !important; line-height: 1.3 !important; margin: 0 0 2mm !important; }
 
-  h2 {
-    font-size:11px !important;
-    margin:0 0 2mm !important;
-  }
-
-  .grid {
-    grid-template-columns:repeat(4,1fr) !important;
-    gap:2mm !important;
-  }
-
-  label {
-    font-size:8px !important;
-  }
-
+  .grid  { grid-template-columns: repeat(4, 1fr) !important; gap: 2mm 4mm !important; }
+  label  { font-size: 16px !important; line-height: 1.2 !important; text-transform: none !important; letter-spacing: 0 !important; margin-bottom: 1px !important; }
   .grid input {
-    border:0 !important;
-    border-bottom:1px solid #aaa !important;
-    border-radius:0 !important;
-    padding:1px 2px !important;
-    font-size:9px !important;
-    background:transparent !important;
-    color:#111 !important;
-  }
-
-  .stats {
-    grid-template-columns:repeat(4,1fr) !important;
-    gap:2mm !important;
-  }
-
-  .stat {
-    padding:2mm !important;
-    border:1px solid #ddd !important;
-  }
-
-  .stat b {
-    font-size:15px !important;
-  }
-
-  .stat span,
-  .stat strong {
-    font-size:8px !important;
-  }
-
-  .scroll {
-    overflow:visible !important;
-    border:0 !important;
-  }
-
-  table {
-    width:100% !important;
-    min-width:0 !important;
-    table-layout:fixed !important;
-    border-collapse:collapse !important;
-    font-size:7px !important;
-    background:#fff !important;
-  }
-
-  th {
-    position:static !important;
-    font-size:6.5px !important;
-    letter-spacing:0 !important;
-    padding:4px 2px !important;
-    white-space:normal !important;
-    overflow-wrap:anywhere !important;
-  }
-
-  td {
-    padding:2px 1px !important;
-    font-size:7px !important;
-    border:1px solid #ccc !important;
-    height:20px !important;
-  }
-
-  td.nm {
-    min-width:0 !important;
-    width:23mm !important;
-    text-align:left !important;
-  }
-
-  td.nm input,
-  td input {
-    width:100% !important;
-    min-width:0 !important;
-    padding:1px !important;
-    border:0 !important;
-    background:transparent !important;
-    color:#111 !important;
-    font-size:7px !important;
-    text-align:center !important;
-  }
-
-  td.nm input {
-    text-align:left !important;
-  }
-
-  td.gn,
-  td.hj {
-    width:9mm !important;
-  }
-
-  .m {
-    width:auto !important;
-    font-size:7px !important;
-  }
-
-  .tag {
-    min-width:0 !important;
-    padding:1px 3px !important;
-    font-size:6px !important;
-  }
-
-  tr {
-    break-inside:avoid;
-    page-break-inside:avoid;
-  }
-
-  thead {
-    display:table-header-group;
-  }
-
-  .m.r,
-  .m.g,
-  .m.y,
-  .PASS,
-  .FAIL,
-  .INCOMPLETE {
-    -webkit-print-color-adjust:exact;
-    print-color-adjust:exact;
-  }
-
-  .subject-name {
-    border:0 !important;
-    background:transparent !important;
-    color:#fff !important;
-    font-weight:bold;
-  }
-
-  .subject-delete {
-    display:none !important;
-  }
-
-  body.individual-print-mode > .wrap {
-    display:none !important;
-  }
-
-  body.individual-print-mode .individual-print {
-    display:block !important;
-  }
-
-  body.class-print-mode .wrap > section:nth-of-type(1),
-  body.class-print-mode .wrap > section:nth-of-type(3),
-  body.class-print-mode .wrap > .foot {
-    display:none !important;
-  }
-
-  body.class-print-mode .wrap .bar {
-    display:none !important;
-  }
-
-  .student-print-card {
-    break-inside:avoid;
-    page-break-inside:avoid;
-  }
-
-  .student-print-card table {
-    min-width:0 !important;
-  }
-}
-/* PRINT FIX: Full student names and failed marks */
-
-@media print {
-  @page {
-    size: A4 landscape;
-    margin: 6mm;
-  }
-
-  #tableHead th:nth-child(2),
-  #rows td.nm {
-    width: 48mm !important;
-    min-width: 48mm !important;
-    max-width: 48mm !important;
-  }
-
-  #rows td.nm input {
-    width: 100% !important;
-    max-width: 100% !important;
-    font-size: 7px !important;
-    font-weight: 600 !important;
-    text-align: left !important;
-    white-space: nowrap !important;
-    overflow: visible !important;
+    border: 0 !important;
+    border-bottom: 1px solid #999 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-size: 16px !important;
+    padding: 1px 2px !important;
     color: #111 !important;
   }
 
-  /* Failed marks: red in printed paper */
+  .stats { grid-template-columns: repeat(4, 1fr) !important; gap: 2mm !important; }
+  .stat  { padding: 2mm !important; border: 1px solid #ddd !important; }
+  .stat b { font-size: 20px !important; }
+  .stat span { font-size: 16px !important; }
+
+  .scroll {
+    overflow: visible !important;
+    border: 0 !important;
+    width: 100% !important;
+  }
+
+  table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+    background: #fff !important;
+  }
+
+  thead { display: table-header-group; }
+  tr { break-inside: avoid !important; page-break-inside: avoid !important; }
+
+  /* ACTION column hide (last column) */
+  #tableHead th:last-child,
+  #rows td:last-child {
+    display: none !important;
+  }
+
+  th {
+    position: static !important;
+    background: #0f5c43 !important;
+    color: #fff !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.2 !important;
+    padding: 4px 2px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border: 1px solid #0f5c43 !important;
+  }
+
+  td {
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+    padding: 2px 2px !important;
+    height: 9mm !important;
+    border: 1px solid #aaa !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    overflow: hidden !important;
+  }
+
+  /* ---- Fixed column widths (subjects share the remaining space equally) ---- */
+  #tableHead th:nth-child(1), #rows td:nth-child(1) { width: 10mm !important; }   /* NO */
+  #tableHead th:nth-child(2), #rows td:nth-child(2) { width: 68mm !important; }   /* NAME */
+  #tableHead th:nth-child(3), #rows td:nth-child(3) { width: 12mm !important; }   /* M/F */
+  #tableHead th:nth-child(4), #rows td:nth-child(4) { width: 21mm !important; }   /* HAJAR */
+  #tableHead th:nth-last-child(4), #rows td:nth-last-child(4) { width: 20mm !important; } /* TOTAL */
+  #tableHead th:nth-last-child(3), #rows td:nth-last-child(3) { width: 30mm !important; } /* REMARKS */
+  #tableHead th:nth-last-child(2), #rows td:nth-last-child(2) { width: 16mm !important; } /* RANK */
+
+  /* Subject headings: full name, written vertically (bottom to top) so 16px fits */
+  #tableHead th.subject-heading {
+    height: 38mm !important;
+    padding: 2mm 0 !important;
+    vertical-align: bottom !important;
+    text-align: center !important;
+  }
+  #tableHead th.subject-heading .subject-name,
+  #tableHead th.subject-heading .subject-delete {
+    display: none !important;
+  }
+  #tableHead th.subject-heading::after {
+    content: attr(data-subject);
+    display: inline-block !important;
+    writing-mode: vertical-rl !important;
+    transform: rotate(180deg) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    color: #fff !important;
+    white-space: nowrap !important;
+  }
+
+  /* Inputs inside table */
+  td input,
+  td.nm input {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    border: 0 !important;
+    background: transparent !important;
+    padding: 1px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+    color: #111 !important;
+    -webkit-text-fill-color: #111 !important;
+  }
+
+  td.nm { text-align: left !important; }
+  td.nm input {
+    text-align: left !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    padding-left: 3px !important;
+  }
+
+  /* Mark colours */
+  #rows input.m {
+    width: 100% !important;
+    border-radius: 3px !important;
+    font-weight: 700 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
   #rows input.m.r {
     background: #d9363e !important;
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
-    print-color-adjust: exact !important;
-    -webkit-print-color-adjust: exact !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
   }
-
   #rows input.m.g {
     background: #2f9e5b !important;
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
-    print-color-adjust: exact !important;
-    -webkit-print-color-adjust: exact !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
   }
-
   #rows input.m.y {
     background: #f6d56a !important;
     color: #4a3a00 !important;
     -webkit-text-fill-color: #4a3a00 !important;
-    print-color-adjust: exact !important;
-    -webkit-print-color-adjust: exact !important;
-  }
-}/* Full subject names in All Students Print */
-
-@media print {
-
-  #tableHead th.subject-heading {
-    padding: 4px 2px !important;
-    white-space: normal !important;
-    overflow: visible !important;
-    height: auto !important;
   }
 
-  #tableHead th.subject-heading .subject-name {
-    display: none !important;
-  }
+  td.tot, td.rk { font-size: 16px !important; font-weight: 800 !important; }
 
-  #tableHead th.subject-heading .subject-delete {
-    display: none !important;
-  }
-
-  #tableHead th.subject-heading::after {
-    content: attr(data-subject);
-    display: block !important;
-    width: 100% !important;
+  .tag {
+    display: inline-block !important;
+    min-width: 0 !important;
+    padding: 2px 6px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
     white-space: normal !important;
     overflow-wrap: anywhere !important;
-    word-break: break-word !important;
-    font-size: 6px !important;
-    line-height: 1.2 !important;
-    text-align: center !important;
-    color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .PASS { background: rgba(47,158,91,.18) !important; color: #0f7a46 !important; }
+  .FAIL { background: rgba(217,54,62,.16) !important; color: #c42b33 !important; }
+  .INCOMPLETE { background: rgba(246,213,106,.4) !important; color: #4a3a00 !important; }
+
+  /* ================= INDIVIDUAL STUDENT MARK SHEET ================= */
+
+  body.individual-print-mode > .wrap {
+    display: none !important;
   }
 
+  body.individual-print-mode .individual-print {
+    display: block !important;
+    width: 100% !important;
+    page: indiv;               /* portrait A4 */
+  }
+
+  body.individual-print-mode .student-print-card {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 6mm !important;
+    border: 1.5px solid #333 !important;
+    background: #fff !important;
+    color: #111 !important;
+    font-family: Arial, "Noto Sans Malayalam", sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  body.individual-print-mode .student-print-card p,
+  body.individual-print-mode .student-print-card div,
+  body.individual-print-mode .student-print-card span,
+  body.individual-print-mode .student-print-card b {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Heading 20px */
+  body.individual-print-mode .student-print-card h1 {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+    font-weight: 800 !important;
+    margin: 0 0 4px !important;
+    text-align: center !important;
+  }
+  /* Sub heading 18px */
+  body.individual-print-mode .student-print-card h2,
+  body.individual-print-mode .student-print-card .school-sub {
+    font-size: 18px !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+  }
+  body.individual-print-mode .student-print-card h2 {
+    font-weight: 700 !important;
+    margin: 4px 0 !important;
+  }
+  body.individual-print-mode .student-print-card .school-sub {
+    margin-bottom: 14px !important;
+  }
+  body.individual-print-mode .student-print-card .student-meta {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px 16px !important;
+    margin: 16px 0 !important;
+    font-size: 16px !important;
+  }
+  body.individual-print-mode .student-print-card .student-meta * {
+    font-size: 16px !important;
+  }
+
+  body.individual-print-mode .student-print-card table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    border-collapse: collapse !important;
+    margin-top: 8px !important;
+  }
+  body.individual-print-mode .student-print-card th,
+  body.individual-print-mode .student-print-card td {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    padding: 11px 8px !important;
+    height: auto !important;
+    border: 1px solid #555 !important;
+    text-align: center !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  body.individual-print-mode .student-print-card td:first-child {
+    text-align: left !important;
+    font-weight: 600 !important;
+  }
+  body.individual-print-mode .student-print-card th {
+    background: #0f5c43 !important;
+    color: #fff !important;
+    position: static !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.individual-print-mode .student-print-card .print-result {
+    margin-top: 18px !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+  }
+  body.individual-print-mode .student-print-card .signature-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 30px !important;
+    margin-top: 60px !important;
+    font-size: 16px !important;
+  }
+  body.individual-print-mode .student-print-card .signature-row span {
+    border-top: 1px solid #333 !important;
+    padding-top: 6px !important;
+    min-width: 35% !important;
+    text-align: center !important;
+    font-size: 16px !important;
+  }
+}
+@media print {
+  th,
+  .hero,
+  .badge,
+  .student-print-card th {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: inset 0 0 0 100px #0f5c43 !important;
+  }
+
+  .badge {
+    box-shadow: inset 0 0 0 100px #000 !important;
+  }
 }
