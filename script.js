@@ -64,10 +64,10 @@
     };
   }
 
-  var S = makeInitialClass();
+  var S;
 
   var ALL = {
-    lists: [S],
+    lists: [makeInitialClass()],
     cur: 0
   };
 
@@ -141,11 +141,20 @@
 
   ALL.lists.forEach(migrateClass);
 
-  var S = ALL.lists[ALL.cur];
+  S = ALL.lists[ALL.cur];
+
+  /* Save (DOM elements and calculated values are not stored) */
 
   function save() {
     try {
-      localStorage.setItem(KEY, JSON.stringify(ALL));
+      localStorage.setItem(
+        KEY,
+        JSON.stringify(ALL, function (k, v) {
+          return (k === "els" || k === "total" || k === "rem")
+            ? undefined
+            : v;
+        })
+      );
     } catch (e) {
       console.warn("Could not save data:", e);
       alert("Data save ചെയ്യാൻ കഴിഞ്ഞില്ല. Browser storage പരിശോധിക്കുക.");
@@ -263,11 +272,12 @@
     if (!name) {
       alert("Subject name ഒഴിച്ചിടാൻ കഴിയില്ല.");
       renderTableHead();
-      return;
+      return false;
     }
 
     S.subjects[index] = name;
     save();
+    return true;
   }
 
   function removeSubject(index) {
@@ -323,9 +333,9 @@
       input.title = "Subject name മാറ്റാൻ ഇവിടെ തിരുത്തുക";
 
       input.addEventListener("change", function () {
-        renameSubject(index, input.value);
-
-        th.setAttribute("data-subject", input.value.trim());
+        if (renameSubject(index, input.value)) {
+          th.setAttribute("data-subject", input.value.trim());
+        }
       });
 
       input.addEventListener("keydown", function (event) {
@@ -412,7 +422,9 @@
       genderInput.title = "M or F";
 
       genderInput.addEventListener("input", function () {
-        genderInput.value = genderInput.value.toUpperCase();
+        genderInput.value = genderInput.value
+          .toUpperCase()
+          .replace(/[^MF]/g, "");
 
         student.g = genderInput.value;
 
@@ -555,14 +567,16 @@
       }
 
       vals.forEach(function (v, j) {
-        var input = student.els.m[j];
+        var input = student.els && student.els.m && student.els.m[j];
 
         if (!input) return;
 
         var cls = "m";
 
         if (v !== null) {
-          if (v < cfg.pass) {
+          if (v > cfg.max || v < 0) {
+            cls += " bad";
+          } else if (v < cfg.pass) {
             cls += " r";
           } else if (v >= cfg.green) {
             cls += " g";
@@ -577,7 +591,7 @@
     });
 
     S.st.forEach(function (student) {
-      if (!student.els) return;
+      if (!student.els || !student.els.t) return;
 
       student.els.t.textContent =
         student.total === null ? "" : student.total;
@@ -673,7 +687,7 @@
     });
   }
 
-  /* Individual student print */
+  /* Individual student print (printed from its own hidden frame) */
 
   function printStudent(index) {
     var student = S.st[index];
@@ -705,10 +719,27 @@
             other.total > student.total;
         }).length;
 
-    var html =
+    var css =
+      "@page{size:A4 portrait;margin:12mm}" +
+      "*{box-sizing:border-box}" +
+      "body{margin:0;font:16px/1.5 Arial,'Noto Sans Malayalam',sans-serif;color:#111;background:#fff}" +
+      ".student-print-card{border:1.5px solid #333;padding:6mm}" +
+      "h1{font-size:20px;text-align:center;margin:0 0 4px}" +
+      "h2{font-size:18px;text-align:center;margin:4px 0}" +
+      ".school-sub{font-size:18px;text-align:center;margin-bottom:14px}" +
+      ".student-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;margin:16px 0}" +
+      "table{width:100%;border-collapse:collapse;margin-top:8px}" +
+      "th,td{border:1px solid #555;padding:11px 8px;text-align:center}" +
+      "td:first-child{text-align:left;font-weight:600}" +
+      "th{background:#0f5c43;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}" +
+      ".print-result{margin-top:18px;font-weight:800}" +
+      ".signature-row{display:flex;justify-content:space-between;gap:30px;margin-top:60px}" +
+      ".signature-row span{border-top:1px solid #333;padding-top:6px;min-width:35%;text-align:center}";
+
+    var body =
       '<div class="student-print-card">' +
 
-        '<h1>NOORUL ISLAM MADRASA EETHAPPADI, CHERUKOD</h1>' +
+        '<h1>NOORUL ISLAM MADRASA EETHAPPADI, CHERUKODE</h1>' +
 
         '<div class="school-sub">Under: Samastha Kerala Islam Matha Vidyabhyasa Board (SKIMVB)</div>' +
 
@@ -748,33 +779,55 @@
 
       '</div>';
 
-    var holder = document.createElement("div");
+    var old = document.getElementById("printFrame");
+    if (old) old.remove();
 
-    holder.className = "individual-print";
-    holder.innerHTML = html;
+    var frame = document.createElement("iframe");
 
-    document.body.appendChild(holder);
+    frame.id = "printFrame";
+    frame.setAttribute("aria-hidden", "true");
+    frame.style.cssText =
+      "position:fixed;left:-10000px;top:0;width:210mm;height:297mm;border:0;";
 
-    document.body.classList.add("individual-print-mode");
+    document.body.appendChild(frame);
 
-    function cleanup() {
-      document.body.classList.remove("individual-print-mode");
+    var doc = frame.contentWindow.document;
 
-      holder.remove();
+    doc.open();
+    doc.write(
+      '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' +
+      esc(student.n) + ' - Mark List</title><style>' + css +
+      '</style></head><body>' + body + '</body></html>'
+    );
+    doc.close();
 
-      window.removeEventListener("afterprint", cleanup);
+    function removeFrame() {
+      if (frame.parentNode) frame.remove();
     }
 
-    window.addEventListener("afterprint", cleanup);
+    try {
+      frame.contentWindow.addEventListener("afterprint", removeFrame);
+    } catch (e) {}
 
-    window.print();
+    setTimeout(function () {
+      try {
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+      } catch (e) {
+        console.warn("Print failed:", e);
+        removeFrame();
+      }
+    }, 400);
 
-    setTimeout(cleanup, 1500);
+    setTimeout(removeFrame, 60000);
   }
 
   /* Print class */
 
   $("print").addEventListener("click", function () {
+    var oldFrame = document.getElementById("printFrame");
+    if (oldFrame) oldFrame.remove();
+
     document.body.classList.add("class-print-mode");
 
     function cleanup() {
@@ -787,7 +840,7 @@
 
     window.print();
 
-    setTimeout(cleanup, 1500);
+    setTimeout(cleanup, 30000);
   });
 
   /* Add student */
@@ -927,7 +980,7 @@
   }
 
   $("newc").addEventListener("click", function () {
-    fresh([], []);
+    fresh([], DEFAULT_SUBJECTS);
   });
 
   $("copyc").addEventListener("click", function () {
