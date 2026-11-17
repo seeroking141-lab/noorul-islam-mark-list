@@ -966,3 +966,271 @@ td.subject-mark {
     print-color-adjust: exact !important;
   }
 }
+@media print {
+  :root {
+    --bg:#fff; --card:#fff; --ink:#111; --mute:#333; --line:#999;
+    --brand:#0f5c43; --brand2:#eef5f0; --head:#0f5c43; --headink:#fff;
+  }
+
+  html, body {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 16px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  button, .bar, .foot, .x, .tabs,
+  .wrap > section:nth-of-type(1),
+  .wrap > section:nth-of-type(3),
+  .subject-delete, .row-print {
+    display: none !important;
+  }
+
+  /* ================= CLASS / ALL STUDENTS LIST ================= */
+  .wrap {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hero {
+    margin: 0 0 3mm !important;
+    padding: 3mm !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #0f5c43 !important;
+    color: #fff !important;
+  }
+  .hero h1 { font-size: 20px !important; margin: 0 !important; font-weight: 800 !important; }
+  .hero p  { font-size: 18px !important; margin: 1mm 0 2mm !important; opacity: 1 !important; }
+  .badge   { font-size: 16px !important; padding: 2px 14px !important; }
+
+  .card {
+    margin: 0 0 3mm !important;
+    padding: 2.5mm !important;
+    border: 1px solid #bbb !important;
+    border-radius: 2px !important;
+    box-shadow: none !important;
+  }
+  h2 { font-size: 18px !important; margin: 0 0 2mm !important; }
+
+  .grid  { grid-template-columns: repeat(4, 1fr) !important; gap: 2mm 4mm !important; }
+  label  { font-size: 16px !important; text-transform: none !important; margin-bottom: 1px !important; }
+  .grid input {
+    border: 0 !important;
+    border-bottom: 1px solid #999 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-size: 16px !important;
+    padding: 1px 2px !important;
+    color: #111 !important;
+  }
+
+  .stats { grid-template-columns: repeat(4, 1fr) !important; gap: 2mm !important; }
+  .stat  { padding: 2mm !important; border: 1px solid #ddd !important; }
+  .stat b { font-size: 20px !important; }
+  .stat span { font-size: 16px !important; }
+
+  .scroll { overflow: visible !important; border: 0 !important; width: 100% !important; }
+
+  table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+    background: #fff !important;
+  }
+
+  thead { display: table-header-group; }
+  tr { break-inside: avoid !important; page-break-inside: avoid !important; }
+
+  #tableHead th:last-child,
+  #rows td:last-child {
+    display: none !important;
+  }
+
+  th {
+    position: static !important;
+    background: #0f5c43 !important;
+    color: #fff !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    padding: 4px 2px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border: 1px solid #0f5c43 !important;
+  }
+
+  td {
+    font-size: 16px !important;
+    padding: 2px 2px !important;
+    height: 9mm !important;
+    border: 1px solid #aaa !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    overflow: hidden !important;
+  }
+
+  #tableHead th:nth-child(1), #rows td:nth-child(1) { width: 10mm !important; }
+  #tableHead th:nth-child(2), #rows td:nth-child(2) { width: 68mm !important; }
+  #tableHead th:nth-child(3), #rows td:nth-child(3) { width: 12mm !important; }
+  #tableHead th:nth-child(4), #rows td:nth-child(4) { width: 21mm !important; }
+  #tableHead th:nth-last-child(4), #rows td:nth-last-child(4) { width: 20mm !important; }
+  #tableHead th:nth-last-child(3), #rows td:nth-last-child(3) { width: 30mm !important; }
+  #tableHead th:nth-last-child(2), #rows td:nth-last-child(2) { width: 16mm !important; }
+
+  #tableHead th.subject-heading {
+    height: 42mm !important;
+    padding: 2mm 0 !important;
+    vertical-align: bottom !important;
+    text-align: center !important;
+  }
+  #tableHead th.subject-heading .subject-name,
+  #tableHead th.subject-heading .subject-delete {
+    display: none !important;
+  }
+  #tableHead th.subject-heading::after {
+    content: attr(data-subject);
+    display: inline-block !important;
+    writing-mode: vertical-rl !important;
+    transform: rotate(180deg) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    white-space: nowrap !important;
+  }
+
+  td input, td.nm input {
+    width: 100% !important;
+    border: 0 !important;
+    background: transparent !important;
+    padding: 1px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    color: #111 !important;
+    -webkit-text-fill-color: #111 !important;
+  }
+
+  td.nm { text-align: left !important; }
+  td.nm input { text-align: left !important; padding-left: 3px !important; }
+
+  #rows input.m {
+    width: 100% !important;
+    border-radius: 3px !important;
+    font-weight: 700 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  #rows input.m.r { background: #d9363e !important; color: #fff !important; -webkit-text-fill-color: #fff !important; }
+  #rows input.m.g { background: #2f9e5b !important; color: #fff !important; -webkit-text-fill-color: #fff !important; }
+  #rows input.m.y { background: #f6d56a !important; color: #4a3a00 !important; -webkit-text-fill-color: #4a3a00 !important; }
+
+  td.tot, td.rk { font-size: 16px !important; font-weight: 800 !important; }
+
+  .tag {
+    display: inline-block !important;
+    padding: 2px 6px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .PASS { background: rgba(47,158,91,.18) !important; color: #0f7a46 !important; }
+  .FAIL { background: rgba(217,54,62,.16) !important; color: #c42b33 !important; }
+  .INCOMPLETE { background: rgba(246,213,106,.4) !important; color: #4a3a00 !important; }
+
+  /* ================= INDIVIDUAL STUDENT MARK SHEET ================= */
+  body.individual-print-mode {
+    page: indiv;
+  }
+
+  body.individual-print-mode > .wrap {
+    display: none !important;
+  }
+
+  body.individual-print-mode .individual-print {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  body.individual-print-mode .student-print-card {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 4mm !important; /* പാഡിംഗ് കുറച്ചു */
+    border: 1px solid #333 !important;
+    background: #fff !important;
+    color: #111 !important;
+    font-family: Arial, "Noto Sans Malayalam", sans-serif !important;
+    font-size: 14px !important; /* ഫോണ്ട് സൈസ് കുറച്ചു */
+    line-height: 1.4 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.individual-print-mode .student-print-card h1 {
+    font-size: 18px !important;
+    margin: 0 0 2px !important;
+    text-align: center !important;
+  }
+  
+  body.individual-print-mode .student-print-card h2,
+  body.individual-print-mode .student-print-card .school-sub {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+    text-align: center !important;
+  }
+  
+  body.individual-print-mode .student-print-card .student-meta {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4px 10px !important;
+    margin: 10px 0 !important;
+    font-size: 14px !important;
+  }
+  
+  body.individual-print-mode .student-print-card .student-meta * {
+    font-size: 14px !important;
+  }
+
+  body.individual-print-mode .student-print-card table {
+    width: 100% !important;
+    margin-top: 5px !important;
+  }
+  
+  body.individual-print-mode .student-print-card th,
+  body.individual-print-mode .student-print-card td {
+    font-size: 14px !important;
+    padding: 6px 4px !important; /* സെല്ലുകളിലെ പാഡിംഗ് കുറച്ചു */
+    line-height: 1.2 !important;
+    border: 1px solid #555 !important;
+    text-align: center !important;
+  }
+  
+  body.individual-print-mode .student-print-card td:first-child {
+    text-align: left !important;
+  }
+
+  body.individual-print-mode .student-print-card th {
+    background: #0f5c43 !important;
+    color: #fff !important;
+  }
+
+  body.individual-print-mode .student-print-card .print-result {
+    margin-top: 10px !important;
+    font-size: 14px !important;
+  }
+  
+  /* ഒപ്പിടാനുള്ള സ്ഥലം കുറച്ചു */
+  body.individual-print-mode .student-print-card .signature-row {
+    margin-top: 35px !important; /* മുൻപ് 60px ആയിരുന്നു */
+    font-size: 14px !important;
+  }
+}
